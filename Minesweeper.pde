@@ -26,14 +26,18 @@ public void setup ()
 }
 public void setBombs()
 {
-    int row = (int)(Math.random()*20);
-    int col = (int)(Math.random()*20);
-    if(!bombs.contains(buttons[row][col])){
-        bombs.add(buttons[row][col]);
-   }
-   else{
-    
-   }
+    for(int i=0; i < 40; i++){
+        int row = (int)(Math.random()*20);
+        int col = (int)(Math.random()*20);
+  
+        if(!bombs.contains(buttons[row][col])){
+            bombs.add(buttons[row][col]);
+
+        }
+        else{
+            setBombs();
+        }
+    }
 }
 
 public void draw ()
