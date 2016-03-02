@@ -26,7 +26,7 @@ public void setup ()
 }
 public void setBombs()
 {
-    for(int i=0; i < 40; i++){
+   while(bombs.size()<40){
         int row = (int)(Math.random()*20);
         int col = (int)(Math.random()*20);
   
@@ -34,9 +34,7 @@ public void setBombs()
             bombs.add(buttons[row][col]);
 
         }
-        else{
-            setBombs();
-        }
+
     }
 }
 
@@ -53,7 +51,14 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-    //your code here
+        background(0);
+        fill(255,0,0);
+        stroke(10);
+        textAlign(CENTER,CENTER);
+        textSize(80);
+        text("YOU LOSE", width/2,height/2);
+        textSize(20);
+        
 }
 public void displayWinningMessage()
 {
@@ -89,10 +94,17 @@ public class MSButton
     }
     // called by manager
     
-    public void mousePressed () 
-    {
+    public void mousePressed() {
         clicked = true;
-        //your code here
+        if(mouseButton == LEFT) {
+            clicked = true;
+        }
+        if(mouseButton == RIGHT) {
+            marked = !marked;
+        }
+         else if (bombs.contains(this)) {
+             displayLosingMessage();
+         }
     }
 
     public void draw () 
@@ -110,21 +122,51 @@ public class MSButton
         fill(0);
         text(label,x+width/2,y+height/2);
     }
+
     public void setLabel(String newLabel)
     {
         label = newLabel;
     }
+
     public boolean isValid(int r, int c)
     {
-        //your code here
+        if(r < 20 || r >= 0 || c < 20 || c >= 0){
+            return true;
+        }
         return false;
     }
     public int countBombs(int row, int col)
     {
         int numBombs = 0;
-        //your code here
-        return numBombs;
-    }
+        if(this.isValid(r,c)){
+        
+            if(bombs.contains(buttons[row][col-1])){
+               numBombs++;
+            }
+            if(bombs.contains(buttons[row][col+1])){
+               numBombs++;
+            }
+            if(bombs.contains(buttons[row+1][col-1])){
+               numBombs++;
+            }
+            if(bombs.contains(buttons[row+1][col])){
+               numBombs++;
+            }
+            if(bombs.contains(buttons[row+1][col+1])){
+               numBombs++;
+            }
+            if(bombs.contains(buttons[row-1][col-1])){
+               numBombs++;
+            }
+            if(bombs.contains(buttons[row-1][col])){
+               numBombs++;
+            }
+            if(bombs.contains(buttons[row-1][col+1])){
+               numBombs++;
+            }
+        }
+    return numBombs;
+}
 }
 
 
