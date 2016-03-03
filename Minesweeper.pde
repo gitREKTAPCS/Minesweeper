@@ -59,18 +59,11 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-  background(0);
-  fill(255, 0, 0);
-  stroke(10);
-  textAlign(CENTER, CENTER);
-  textSize(80);
-  text("YOU LOSE", width/2, height/2);
-  textSize(20);
-  for (int r = 0; r < NUM_ROWS; r++) {
-    for (int c = 0; c < NUM_COLS; c++) {
-      buttons[r][c].mousePressed();
-    }
-  }
+ fill(255);
+    text("Better Luck Next Time...", 200, 450);
+    for(int i = 0; i < NUM_ROWS; i++)
+        for(int j = 0; j < NUM_COLS; j++)
+            buttons[i][j].mousePressed();
 }
 
   public void displayWinningMessage()
@@ -125,24 +118,21 @@ public class MSButton
     } else if (this.countBombs(r, c) > 0) {
       this.setLabel(Integer.toString(this.countBombs(r, c)));
     } else {
-      if (this.isValid(r, c)) {
-        buttons[r][c-1].mousePressed();
-        buttons[r][c+1].mousePressed();
-        buttons[r+1][c-1].mousePressed();
-        buttons[r+1][c].mousePressed();
-        buttons[r+1][c-1].mousePressed();
-        buttons[r-1][c-1].mousePressed();
-        buttons[r-1][c].mousePressed();
-        buttons[r-1][c+1].mousePressed();
+      for(int r=-1; r<2; r++){
+        for(int c=-1; c<2; c++){
+            if(isValid(r,c)){
+                buttons[r][c].mousePressed();
+            }
+        }
+      }
       }
     }
-  }
 
   public void draw () 
   {    
     if (marked)
       fill(0);
-    else if ( clicked && bombs.contains(this) ) 
+    else if ( clicked && bombs.contains(this)) 
       fill(255, 0, 0);
     else if (clicked)
       fill( 200 );
@@ -151,14 +141,14 @@ public class MSButton
 
     rect(x, y, width, height);
     fill(0);
+    textSize(15);
     text(label, x+width/2, y+height/2);
   }
 
   public void setLabel(String newLabel)
   {
     label = newLabel;
-    textSize(15);
-    text(label, x/2, y/2);
+    
   }
 
   public boolean isValid(int r, int c)
@@ -199,3 +189,4 @@ public class MSButton
     return numBombs;
   }
 }
+
