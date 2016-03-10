@@ -40,7 +40,7 @@ public void setBombs()
 
 public void draw ()
 {
-        background(210);
+        background(200);
          fill(0);
         text("Usable bombs left: " + bombCount, 200, 430);
         if (lose) {
