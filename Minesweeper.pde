@@ -40,7 +40,7 @@ public void setBombs()
 
 public void draw ()
 {
-        background(200);
+        background(210);
          fill(0);
         text("Usable bombs left: " + bombCount, 200, 430);
         if (lose) {
@@ -143,14 +143,13 @@ public class MSButton
         rect(x, y, width, height);
         fill(0);
         textSize(18);
-        text(label,x+width/2,y+height/2);
+        text(label,x+10,y+10);
         
     }
 
   public void setLabel(String newLabel)
   {
     label = newLabel;
-    
   }
 
   public boolean isValid(int r, int c)
